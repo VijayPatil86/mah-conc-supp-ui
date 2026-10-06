@@ -11,15 +11,19 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 15px;
+  flex-wrap: wrap;  /* Allow wrapping for smaller screens */
+  gap: 10px;  /* Add some space between elements */
 }
 
 .form-row label {
   width: 90px;
+  flex-shrink: 0;  /* Prevent label from shrinking */
 }
 
 .form-row input {
   flex: 1;
   padding: 8px;
+  min-width: 0px;  /* Ensure input doesn't get too small */
 }
 
 .send-otp {
@@ -38,14 +42,9 @@
   justify-content: center;
   margin-top: 30px;
 }
-
-.shop-footer {
-  text-align: center;
-  padding: 15px;
-  margin-top: 40px;
-}
-
-.shop-footer p {
-  margin: 0;
+.error-message {
+  flex-basis: 100%;
+  color: red;
   font-size: 0.9rem;
+  margin-left: 100px;
 }

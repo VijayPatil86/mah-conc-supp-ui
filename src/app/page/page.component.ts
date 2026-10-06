@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../service/AuthService';
 
 @Component({
     selector: 'app-page',
@@ -11,17 +12,39 @@ import {HttpClient} from '@angular/common/http';
 })
 
 export class PageComponent {
-    constructor(private http: HttpClient) {}
+    username: string = '';
+    usernameError = '';
+    otp: string = '';
+    otpError = '';
 
-    sendOtp(event: Event) {
+    constructor(private authService: AuthService) {}
+
+    onSendOtp(event: Event) {
         event.preventDefault(); // stop the "#" link from jumping to the top
-        this.http.get('http://desktop-h04g8vv:8001/api/auth/test').subscribe({
+        this.usernameError = ''; // Reset the error message
+
+        if(this.username.trim() === '') {
+            this.usernameError = 'Username is required.';
+            return;
+        }
+
+        this.authService.sendOtp(this.username).subscribe({
             next: (response) => {
                 console.log('OTP sent successfully', response);
             },
             error: (error) => {
                 console.error('Error sending OTP', error);
+                this.usernameError = 'Failed to send OTP. Please try again.';
             }
         });
+    }
+
+    login() {
+        this.usernameError = this.username.trim() === '' ? 'Username is required.' : '';
+        this.otpError = this.otp.trim() === '' ? 'OTP is required.' : '';
+        if (this.usernameError || this.otpError) {
+            return; // Stop if there are validation errors
+        }
+        // Add your login logic here
     }
 }

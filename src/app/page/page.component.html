@@ -1,17 +1,25 @@
 <main class="login-body">
     <div class="form-row">
         <label for="username">User Name</label>
-    <input type="text" id="username" name="username">
-    <a href="#" class="send-otp" (click)="sendOtp($event)">Send OTP</a>
+    <input type="text" id="username" name="username" [(ngModel)]="username"
+      (input)="usernameError=''">
+    <a href="#" class="send-otp" (click)="onSendOtp($event)">Send OTP</a>
+    @if (usernameError) {
+        <span class="error-message">{{usernameError}}</span>
+    }
   </div>
 
   <div class="form-row">
     <label for="otp">OTP</label>
-    <input type="text" id="otp" name="otp">
+    <input type="text" id="otp" name="otp" [(ngModel)]="otp"
+      (input)="otpError=''">
+    @if (otpError) {
+        <span class="error-message">{{otpError}}</span>
+    }
   </div>
 
   <div class="form-row button-row">
-    <button type="button" id="login-btn">Log In</button>
+    <button type="button" id="login-btn" (click)="login()">Log In</button>
   </div>
 
 </main>
