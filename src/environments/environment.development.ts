@@ -1,3 +1,4 @@
 export const environment = {
-    baseUrl: 'http://desktop-h04g8vv:8001/api',    // dev url goes here
+    apiUrl: 'http://desktop-h04g8vv:8001/api',
+    email_GMail_Domain_Name: 'gmail.com',
 };
